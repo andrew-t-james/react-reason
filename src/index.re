@@ -5,6 +5,6 @@ external register_service_worker: unit => unit = "register";
 [@bs.module "./serviceWorker"]
 external unregister_service_worker: unit => unit = "unregister";
 
-ReactDOMRe.renderToElementWithId(<App />, "root");
+ReactDOMRe.renderToElementWithId(<App title="What to do" />, "root");
 
 unregister_service_worker();
