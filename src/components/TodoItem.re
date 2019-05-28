@@ -1,6 +1,6 @@
 let str = ReasonReact.string;
 let component = ReasonReact.statelessComponent("TodoItem");
-let make = (~item: TodoModel.item, ~onRemove, ~onToggle, _children) => {
+let make = (~item: TodoType.item, ~onRemove, ~onToggle, _children) => {
   ...component,
   render: _self =>
     <div className="item">

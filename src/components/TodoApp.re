@@ -1,5 +1,5 @@
 type state = {
-  items: list(TodoModel.item), /* list of Todo items */
+  items: list(TodoType.item), /* list of Todo items */
   inputText: string,
   /* we will use this when we will take input from a user */
 };
@@ -25,13 +25,13 @@ let make = _children => {
             ...state,
             items:
               List.map(
-                (item: TodoModel.item) =>
-                  item.id == id ?
-                    {
+                (item: TodoType.item) =>
+                  item.id == id
+                    ? {
                       ...item,
-                      TodoModel.completed: !TodoModel.(item.completed),
-                    } :
-                    item,
+                      TodoType.completed: !TodoType.(item.completed),
+                    }
+                    : item,
                 state.items,
               ),
           })
@@ -42,7 +42,7 @@ let make = _children => {
             ...state,
             items:
               List.filter(
-                (item: TodoModel.item) => item.id !== id,
+                (item: TodoType.item) => item.id !== id,
                 state.items,
               ),
           })
@@ -53,22 +53,20 @@ let make = _children => {
     let {items, inputText} = self.state;
     <div className="app">
       <div className="list">
-        {
-          ReasonReact.array(
-            Array.of_list(
-              List.map(
-                (item: TodoModel.item) =>
-                  <TodoItem
-                    key={string_of_int(item.id)}
-                    item
-                    onRemove={id => self.send(RemoveItem(id))}
-                    onToggle={id => self.send(Toggle(id))}
-                  />,
-                items,
-              ),
-            ),
-          )
-        }
+        {ReasonReact.array(
+           Array.of_list(
+             List.map(
+               (item: TodoType.item) =>
+                 <TodoItem
+                   key={string_of_int(item.id)}
+                   item
+                   onRemove={id => self.send(RemoveItem(id))}
+                   onToggle={id => self.send(Toggle(id))}
+                 />,
+               items,
+             ),
+           ),
+         )}
       </div>
     </div>;
   },
